@@ -1,0 +1,46 @@
+{
+  "name": "demo",
+  "max_parallel": 3,
+  "fail_strategy": "fail-fast",
+  "variables": {
+    "GREETING": "hello",
+    "OUT_DIR": "build"
+  },
+  "tasks": {
+    "fetch": {
+      "description": "Pretend to fetch sources",
+      "commands": [
+        "python -c \"import pathlib; pathlib.Path('build').mkdir(exist_ok=True); pathlib.Path('build/source.txt').write_text('${var.GREETING}')\""
+      ],
+      "outputs": ["build/source.txt"]
+    },
+    "lint": {
+      "description": "Run lint independently of fetch",
+      "commands": ["python -c \"print('lint ok')\""]
+    },
+    "build": {
+      "description": "Build depends on fetch",
+      "depends_on": ["fetch"],
+      "inputs": ["build/source.txt"],
+      "outputs": ["build/artifact.txt"],
+      "commands": [
+        "python -c \"open('build/artifact.txt','w').write(open('build/source.txt').read().upper())\""
+      ],
+      "retry": { "max_attempts": 2, "backoff_initial": 0.5 },
+      "timeout": 30
+    },
+    "test": {
+      "description": "Test depends on build",
+      "depends_on": ["build", "lint"],
+      "commands": [
+        "python -c \"assert open('build/artifact.txt').read() == 'HELLO'; print('tests pass')\""
+      ]
+    },
+    "package": {
+      "description": "Only runs if artifact exists",
+      "depends_on": ["test"],
+      "when": { "file_exists": "build/artifact.txt" },
+      "commands": ["python -c \"print('packaged')\""]
+    }
+  }
+}
