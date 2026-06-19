@@ -1,0 +1,63 @@
+[09:06:35] INFO    Config: jupiter.json
+[09:06:35] INFO    Selected tasks: build, clean, fetch, generate, notify, package, test
+[09:06:35] INFO    Max concurrency: 4
+[09:06:35] INFO    Execution plan (dry-run):
+[09:06:35] INFO      Layer 1 (parallel): clean
+[09:06:35] INFO      Layer 2 (parallel): fetch, generate
+[09:06:35] INFO      Layer 3 (parallel): build
+[09:06:35] INFO      Layer 4 (parallel): test
+[09:06:35] INFO      Layer 5 (parallel): package
+[09:06:35] INFO      Layer 6 (parallel): notify
+[09:06:35] INFO    
+[09:06:45] INFO    ▶ clean
+[09:06:45] INFO    ✓ clean (0.22s)
+[09:06:45] INFO    ▶ fetch
+[09:06:45] INFO    ▶ generate
+[09:06:45] INFO    ✓ generate (0.13s)
+[09:06:45] INFO    ✓ fetch (0.20s)
+[09:06:45] INFO    ▶ build
+[09:06:45] INFO    ✓ build (0.30s)
+[09:06:45] INFO    ▶ test
+[09:06:45] INFO    ✓ test (0.13s)
+[09:06:45] INFO    ▶ package
+[09:06:46] INFO    ✓ package (0.27s)
+[09:06:46] INFO    ▶ notify
+[09:06:46] INFO    ✓ notify (0.18s)
+[09:06:46] INFO    
+[09:06:46] INFO    ==================================================
+[09:06:46] INFO    Summary (1.32s total):
+[09:06:46] INFO      Success:    7
+[09:06:46] INFO      Up-to-date: 0
+[09:06:46] INFO      Failed:     0
+[09:06:46] INFO      Skipped:    0
+[09:06:46] INFO    ==================================================
+[09:06:55] INFO    ▶ clean
+[09:06:55] INFO    ✓ clean (0.31s)
+[09:06:55] INFO    ▶ fetch
+[09:06:55] INFO    ▶ generate
+[09:06:55] INFO    ✓ generate (0.22s)
+[09:06:55] INFO    ✓ fetch (0.31s)
+[09:06:55] INFO    ▶ build
+[09:06:56] INFO    ✓ build (0.92s)
+[09:06:56] INFO    ▶ test
+[09:06:56] INFO    ✓ test (0.20s)
+[09:06:56] INFO    ▶ package
+[09:06:57] INFO    ✓ package (0.50s)
+[09:06:57] INFO    ▶ notify
+[09:06:57] INFO    ✓ notify (0.17s)
+[09:06:57] INFO    
+[09:06:57] INFO    ==================================================
+[09:06:57] INFO    Summary (2.43s total):
+[09:06:57] INFO      Success:    7
+[09:06:57] INFO      Up-to-date: 0
+[09:06:57] INFO      Failed:     0
+[09:06:57] INFO      Skipped:    0
+[09:06:57] INFO    ==================================================
+[09:07:08] INFO    Config: jupiter.json
+[09:07:08] INFO    Selected tasks: build, clean, fetch, generate
+[09:07:08] INFO    Max concurrency: 4
+[09:07:08] INFO    Execution plan (dry-run):
+[09:07:08] INFO      Layer 1 (parallel): clean
+[09:07:08] INFO      Layer 2 (parallel): fetch, generate
+[09:07:08] INFO      Layer 3 (parallel): build
+[09:07:08] INFO    

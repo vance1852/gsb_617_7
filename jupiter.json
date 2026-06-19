@@ -1,0 +1,91 @@
+﻿{
+  "variables": {
+    "build_dir": "build",
+    "version": "1.0.0",
+    "message": "Hello from Jupiter"
+  },
+  "env": {
+    "MY_VAR": "global_value"
+  },
+  "max_concurrency": 4,
+  "failure_strategy": "fail_fast",
+  "state_file": ".jupiter_state.json",
+  "log_file": "jupiter.log",
+  "tasks": {
+    "clean": {
+      "commands": [
+        "echo Cleaning build directory...",
+        "if exist build rmdir /s /q build",
+        "mkdir build"
+      ],
+      "timeout": 10
+    },
+    "fetch": {
+      "commands": [
+        "echo Fetching dependencies...",
+        "echo Fetched version {{version}}",
+        "echo output_from_fetch > build/fetched.txt"
+      ],
+      "depends_on": ["clean"],
+      "outputs": ["build/fetched.txt"]
+    },
+    "generate": {
+      "commands": [
+        "echo Generating code...",
+        "echo generated > build/generated.txt"
+      ],
+      "depends_on": ["clean"],
+      "outputs": ["build/generated.txt"]
+    },
+    "build": {
+      "commands": [
+        "echo Building project {{version}}...",
+        "echo Message: {{message}}",
+        "echo MY_VAR={{env.MY_VAR}}",
+        "echo build output > build/output.bin",
+        "type build\\fetched.txt"
+      ],
+      "depends_on": ["fetch", "generate"],
+      "env": {
+        "BUILD_TYPE": "release"
+      },
+      "timeout": 30,
+      "retries": 2,
+      "retry_backoff": 1.0,
+      "retry_backoff_factor": 2.0,
+      "inputs": ["build/fetched.txt", "build/generated.txt"],
+      "outputs": ["build/output.bin"]
+    },
+    "test": {
+      "commands": [
+        "echo Running tests...",
+        "echo All tests passed!"
+      ],
+      "depends_on": ["build"],
+      "timeout": 20,
+      "condition": {
+        "file_exists": "build/output.bin"
+      }
+    },
+    "package": {
+      "commands": [
+        "echo Packaging version {{version}}...",
+        "echo Package complete"
+      ],
+      "depends_on": ["test"],
+      "timeout": 15
+    },
+    "notify": {
+      "commands": [
+        "echo Notification: build succeeded",
+        "echo Package built successfully!"
+      ],
+      "depends_on": ["package"],
+      "condition": {
+        "upstream_status": {
+          "package": "success"
+        }
+      }
+    }
+  }
+}
