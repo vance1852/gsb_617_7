@@ -1,0 +1,95 @@
+name = "example-build"
+max_concurrency = 4
+failure_strategy = "fail_fast"
+# state_file = ".saturn/state.json"
+# log_file = ".saturn/build.log"
+# webhook_url = "https://webhook.example.com/saturn"
+
+[variables]
+build_dir = "build"
+src_dir = "src"
+version = "1.0.0"
+
+[tasks.clean]
+description = "Clean build directory"
+commands = [
+    "echo Cleaning build directory...",
+    "if exist build rmdir /s /q build",
+    "mkdir build",
+]
+outputs = ["${var.build_dir}"]
+
+[tasks.fetch]
+description = "Fetch dependencies (simulated)"
+depends_on = ["clean"]
+commands = [
+    "echo Fetching dependencies...",
+    "echo Fetched 3 packages",
+]
+retries = 2
+retry_backoff = 0.5
+timeout = 30
+
+[tasks.lint]
+description = "Run linting checks"
+depends_on = ["fetch"]
+commands = [
+    "echo Running linter...",
+    "echo Lint passed",
+]
+timeout = 60
+
+[tasks.compile]
+description = "Compile source code"
+depends_on = ["fetch"]
+commands = [
+    "echo Compiling ${var.src_dir} to ${var.build_dir}...",
+    "echo Compiled successfully",
+    "echo ##saturn:output artifact=${var.build_dir}/app.exe",
+]
+inputs = ["${var.src_dir}/**/*"]
+outputs = ["${var.build_dir}/*.exe", "${var.build_dir}/*.dll"]
+env = { CFLAGS = "-O2", VERSION = "${var.version}" }
+timeout = 120
+
+[tasks.test-unit]
+description = "Run unit tests"
+depends_on = ["compile"]
+commands = [
+    "echo Running unit tests...",
+    "echo All unit tests passed",
+]
+timeout = 60
+
+[tasks.test-integration]
+description = "Run integration tests"
+depends_on = ["compile"]
+commands = [
+    "echo Running integration tests...",
+    "echo Integration tests passed",
+]
+timeout = 90
+
+[tasks.package]
+description = "Package the application"
+depends_on = ["test-unit", "test-integration"]
+commands = [
+    "echo Packaging v${var.version}...",
+    "echo Created ${var.build_dir}/app-${var.version}.zip",
+]
+outputs = ["${var.build_dir}/*.zip"]
+
+[tasks.notify]
+description = "Send notification (runs even on failure)"
+depends_on = ["package"]
+run_on_failure = true
+commands = [
+    "echo Build pipeline finished",
+]
+
+# Example of a conditional task
+# [tasks.deploy]
+# description = "Deploy only if NOTIFY_WEBHOOK env var is set"
+# depends_on = ["package"]
+# condition = { env_equals = { name = "DEPLOY_ENV", value = "production" } }
+# commands = ["echo Deploying..."]
