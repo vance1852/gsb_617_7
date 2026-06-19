@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "saturn-workflow"
+version = "0.1.0"
+description = "A lightweight workflow runner with DAG-based task orchestration"
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [{ name = "Saturn Team" }]
+license = { text = "MIT" }
+dependencies = [
+    "tomli>=2.0.0; python_version < '3.11'",
+]
+
+[project.scripts]
+saturn = "saturn.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["saturn*"]
