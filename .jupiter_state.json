@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "results": {
+    "clean": {
+      "status": "success",
+      "exit_code": 0,
+      "stdout": "Cleaning build directory...\r\n",
+      "stderr": "",
+      "duration": 0.31285762786865234,
+      "attempts": 1,
+      "skipped_reason": null,
+      "outputs": {}
+    },
+    "generate": {
+      "status": "success",
+      "exit_code": 0,
+      "stdout": "Generating code...\r\n",
+      "stderr": "",
+      "duration": 0.2196047306060791,
+      "attempts": 1,
+      "skipped_reason": null,
+      "outputs": {}
+    },
+    "fetch": {
+      "status": "success",
+      "exit_code": 0,
+      "stdout": "Fetching dependencies...\r\nFetched version 1.0.0\r\n",
+      "stderr": "",
+      "duration": 0.30657267570495605,
+      "attempts": 1,
+      "skipped_reason": null,
+      "outputs": {}
+    },
+    "build": {
+      "status": "success",
+      "exit_code": 0,
+      "stdout": "Building project 1.0.0...\r\nMessage: Hello from Jupiter\r\nMY_VAR=global_value\r\noutput_from_fetch \r\n",
+      "stderr": "",
+      "duration": 0.9246251583099365,
+      "attempts": 1,
+      "skipped_reason": null,
+      "outputs": {}
+    },
+    "test": {
+      "status": "success",
+      "exit_code": 0,
+      "stdout": "Running tests...\r\nAll tests passed!\r\n",
+      "stderr": "",
+      "duration": 0.19566845893859863,
+      "attempts": 1,
+      "skipped_reason": null,
+      "outputs": {}
+    },
+    "package": {
+      "status": "success",
+      "exit_code": 0,
+      "stdout": "Packaging version 1.0.0...\r\nPackage complete\r\n",
+      "stderr": "",
+      "duration": 0.4999659061431885,
+      "attempts": 1,
+      "skipped_reason": null,
+      "outputs": {}
+    },
+    "notify": {
+      "status": "success",
+      "exit_code": 0,
+      "stdout": "Notification: build succeeded\r\nPackage built successfully!\r\n",
+      "stderr": "",
+      "duration": 0.1744687557220459,
+      "attempts": 1,
+      "skipped_reason": null,
+      "outputs": {}
+    }
+  },
+  "fingerprints": {
+    "clean": {},
+    "generate": {},
+    "fetch": {},
+    "build": {
+      "E:\\gsb\\617\\gsb_7\\Jupiter\\build\\fetched.txt": [
+        "1bdba6c052fe500e06305eada5404a534c69a3ec2b224be9e77cb9a2dadd10a8",
+        1781831215.7516444
+      ],
+      "E:\\gsb\\617\\gsb_7\\Jupiter\\build\\generated.txt": [
+        "586fa99baaab8ab2082a38347721fd0daf7f9c2194cf29fca8b0e2a209c341d7",
+        1781831215.668821
+      ]
+    },
+    "test": {},
+    "package": {},
+    "notify": {}
+  }
+}
